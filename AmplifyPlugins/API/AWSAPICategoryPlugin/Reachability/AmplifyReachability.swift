@@ -26,7 +26,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-//This code was taken from the 5.0.0 release
+// This code was taken from the 5.0.0 release
 // Commit SHA1: 98e968e7b6c1318fb61df23e347bc319761e8acb
 import SystemConfiguration
 import Foundation
@@ -137,7 +137,9 @@ public class AmplifyReachability {
                          notificationQueue: DispatchQueue? = .main) {
         self.allowsCellularConnection = true
         self.reachabilityRef = reachabilityRef
-        self.reachabilitySerialQueue = DispatchQueue(label: "uk.co.ashleymills.reachability", qos: queueQoS, target: targetQueue)
+        self.reachabilitySerialQueue = DispatchQueue(label: "uk.co.ashleymills.reachability",
+                                                     qos: queueQoS,
+                                                     target: targetQueue)
         self.notificationQueue = notificationQueue
     }
 
@@ -148,7 +150,10 @@ public class AmplifyReachability {
         guard let ref = SCNetworkReachabilityCreateWithName(nil, hostname) else {
             throw AmplifyReachabilityError.failedToCreateWithHostname(hostname, SCError())
         }
-        self.init(reachabilityRef: ref, queueQoS: queueQoS, targetQueue: targetQueue, notificationQueue: notificationQueue)
+        self.init(reachabilityRef: ref,
+                  queueQoS: queueQoS,
+                  targetQueue: targetQueue,
+                  notificationQueue: notificationQueue)
     }
 
     public convenience init(queueQoS: DispatchQoS = .default,
@@ -162,7 +167,10 @@ public class AmplifyReachability {
             throw AmplifyReachabilityError.failedToCreateWithAddress(zeroAddress, SCError())
         }
 
-        self.init(reachabilityRef: ref, queueQoS: queueQoS, targetQueue: targetQueue, notificationQueue: notificationQueue)
+        self.init(reachabilityRef: ref,
+                  queueQoS: queueQoS,
+                  targetQueue: targetQueue,
+                  notificationQueue: notificationQueue)
     }
 
     deinit {
@@ -189,7 +197,8 @@ public extension AmplifyReachability {
         }
 
         let weakifiedReachability = AmplifyReachabilityWeakifier(reachability: self)
-        let opaqueWeakifiedReachability = Unmanaged<AmplifyReachabilityWeakifier>.passUnretained(weakifiedReachability).toOpaque()
+        let opaqueWeakifiedReachability = Unmanaged<AmplifyReachabilityWeakifier>
+            .passUnretained(weakifiedReachability).toOpaque()
 
         var context = SCNetworkReachabilityContext(
             version: 0,
@@ -269,7 +278,6 @@ private extension AmplifyReachability {
             self.flags = flags
         }
     }
-
 
     func notifyReachabilityChanged() {
         let notify = { [weak self] in

@@ -61,9 +61,11 @@ class AWSSubscriptionConnectionFactory: SubscriptionConnectionFactory {
                                                  region: awsIAMConfiguration.region)
         case .openIDConnect:
             guard let oidcAuthProvider = apiAuthProviderFactory.oidcAuthProvider() else {
-                throw APIError.invalidConfiguration("Using openIDConnect requires passing in an APIAuthProvider with an OIDC AuthProvider",
-                                                    "When instantiating AWSAPIPlugin pass in an instance of APIAuthProvider",
-                                                    nil)
+                throw APIError.invalidConfiguration(
+                    "Using openIDConnect requires passing in an APIAuthProvider with an OIDC AuthProvider",
+                    "When instantiating AWSAPIPlugin pass in an instance of APIAuthProvider",
+                    nil
+                )
             }
             let wrappedProvider = OIDCAuthProviderWrapper(oidcAuthProvider: oidcAuthProvider)
             authInterceptor = OIDCAuthInterceptor(wrappedProvider)

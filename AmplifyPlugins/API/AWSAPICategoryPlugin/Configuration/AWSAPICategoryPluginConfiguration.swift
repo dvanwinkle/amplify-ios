@@ -31,9 +31,11 @@ public struct AWSAPICategoryPluginConfiguration {
             )
         }
 
-        let endpoints = try AWSAPICategoryPluginConfiguration.endpointsFromConfig(config: config,
-                                                                                  apiAuthProviderFactory: apiAuthProviderFactory,
-                                                                                  authService: authService)
+        let endpoints = try AWSAPICategoryPluginConfiguration.endpointsFromConfig(
+            config: config,
+            apiAuthProviderFactory: apiAuthProviderFactory,
+            authService: authService
+        )
         self.init(endpoints: endpoints)
     }
 
